@@ -1108,6 +1108,9 @@ tagsInput.factory('tiUtil', ["$timeout", "$q", function($timeout, $q) {
     };
 
     self.safeHighlight = function(str, value) {
+        str = self.encodeHTML(str);
+        value = self.encodeHTML(value);
+        
         if (!value) {
             return str;
         }
@@ -1115,9 +1118,6 @@ tagsInput.factory('tiUtil', ["$timeout", "$q", function($timeout, $q) {
         function escapeRegexChars(str) {
             return str.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1');
         }
-
-        str = self.encodeHTML(str);
-        value = self.encodeHTML(value);
 
         var expression = new RegExp('&[^;]+;|' + escapeRegexChars(value), 'gi');
         return str.replace(expression, function(match) {
